@@ -17,9 +17,16 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage('Store Atrtifacts into S3') {
+            steps {
+               archiveArtifacts artifacts: 'target/*.war',
+                                 fingerprint: true
+            }
+        }
+
         stage('Deploy') {
             steps {
-              step <object of type hudson.plugins.s3.S3BucketPublisher>
+              sh 'sudo cp /var/lib/jenkins/workspace/pipeline01/target/*.war /home/maha/tomcat/webapps/'
             }
         }
     }
