@@ -4,22 +4,22 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                echo 'Hello World'
+                git branch: 'main', url: 'https://github.com/sarangi99/CICD-SWIGGY.git'
             }
         }
         stage('Compile') {
             steps {
-                echo 'Hello World'
+                sh 'mvn clean compile'
             }
         }
         stage('Package') {
             steps {
-                echo 'Hello World'
+                sh 'mvn package'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Hello World'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat-cred', path: '', url: 'http://16.163.145.83:9090')], contextPath: null, war: '**/*.war'
             }
         }
     }
