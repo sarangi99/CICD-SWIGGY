@@ -19,7 +19,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat-cred', path: '', url: 'http://16.163.145.83:9090')], contextPath: null, war: '**/*.war'
+                // deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat-cred', path: '', url: 'http://16.163.145.83:9090')], contextPath: null, war: '**/*.war'
+            cp /var/lib/jenkins/workspace/pipeline01/target/ *.war /home/maha/tomcat/webapps/
             }
         }
     }
